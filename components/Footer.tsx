@@ -1,17 +1,29 @@
+import Link from 'next/link'
 import React from 'react'
 
-export default function Footer() {
-  return (
-    <footer className='mb-10 px-4 text-center text-gray-500'>
-      <small className='mb-2 block text-xs'>
-        &copy; 2024 Sai. All rights reserved.
-      </small>
-      <p className='text-xs'>
-        <span className='font-semibold'>
-          About this website:
-        </span>
-        built with React & Next.js (App Router & Server Actions), TypeScript, Tailwind CSS, Framer Motion, React Email & Resend, Vercel hosting.
-      </p>
-    </footer>
-  )
+const Footer = () => {
+    return (
+        <footer className='border-t py-8'>
+            <div className='container mx-auto flex flex-col items-center justify-between'>
+                <div className='mb-4 md:mb-0'>
+                    <p className='text-sm text-muted-foreground'>
+                        &copy; {new Date().getFullYear()} Sai Pone Kha Aung. All rights reserved.
+                    </p>
+                </div>
+                <div className='flex space-x-6'>
+                    <Link href="#" className='text-sm text-muted-foreground hover:text-foreground transition-colors'>
+                        Privacy Policy
+                    </Link>
+                    <Link href="#" className='text-sm text-muted-foreground hover:text-foreground transition-colors'>
+                        Terms of Service
+                    </Link>
+                    <Link href="#" className='text-sm text-muted-foreground hover:text-foreground transition-colors'>
+                        Sitemap
+                    </Link>
+                </div>
+            </div>
+        </footer>
+    )
 }
+
+export default Footer

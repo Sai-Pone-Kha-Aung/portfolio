@@ -30,7 +30,8 @@ export default function ContactFormEmail({
           <Container>
             <Section className="bg-white borderBlack my-10 px-10 py-4 rounded-md">
               <Heading className="leading-tight">
-                You received the following message from the contact form
+                You received the following message from the contact form from your portfolio
+                site.
               </Heading>
               <Text>{message}</Text>
               <Hr />
