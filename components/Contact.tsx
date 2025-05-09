@@ -1,62 +1,241 @@
-'use client';
+"use client"
 
-import React from 'react'
-import SectionHeader from '@/components/Section-Header';
-import { motion } from 'framer-motion';
-import { useSectionInView } from '@/lib/hooks';
-import SubmitBtn from '@/components/Submit-Btn';
-import { sendEmail } from '@/actions/Send-Email';
-import toast from 'react-hot-toast';
+import { motion } from "framer-motion"
+import { useInView } from "framer-motion"
+import { useRef, useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Mail, MapPin, Phone, Send } from "lucide-react"
+import Link from "next/link"
+import { sendEmail } from "@/actions/Send-Email"
+
 export default function Contact() {
-  const { ref } = useSectionInView("Contact");
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.3 })
+  const [formState, setFormState] = useState({
+    senderEmail: "",
+    message: "",
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormState({
+      ...formState,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+
   return (
-    <motion.section
-      id='contact'
-      ref={ref}
-      className='mb-20 sm:mb-40 w-[min(100%, 38rem)] text-center'
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-      viewport={{ once: true }}
-    >
-      <SectionHeader>Contact me</SectionHeader>
-      <p className='text-gray-700 -mt-6 dark:text-white/80'>
-        Please contact me directly at{' '}
-        <a href="saiponekhaaaung@gmail.com" className='underline'>
-          saiponekhaaaung@gmail.com
-        </a>{' '}
-        or through this form.
-      </p>
+    <section id="contact" className="py-20 md:py-28 mx-auto">
+      <div className="container">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl font-bold mb-4 inline-flex items-center">
+            Get In Touch
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            I&apos;m currently open to new opportunities and collaborations. Whether you have a question or just want to say
+            hi, I&apos;ll do my best to get back to you!
+          </p>
+        </motion.div>
 
-      <form
-        className='mt-10 flex flex-col dark:text-black'
-        action={async (formData) => {
-          const { error } = await sendEmail(formData);
-          if (error) {
-            console.log(error);
-            return;
-          }
+        <div ref={ref} className="grid md:grid-cols-2 gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+            <div className="space-y-6">
+              <div className="flex items-start">
+                <div className="bg-primary/10 p-3 rounded-full mr-4">
+                  <Mail className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h4 className="font-medium">Email</h4>
+                  <p className="text-muted-foreground">saiponekhaaaung@gmail.com</p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <div className="bg-primary/10 p-3 rounded-full mr-4">
+                  <MapPin className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h4 className="font-medium">Location</h4>
+                  <p className="text-muted-foreground">Bangkok, TH</p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <div className="bg-primary/10 p-3 rounded-full mr-4">
+                  <Phone className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h4 className="font-medium">Phone</h4>
+                  <p className="text-muted-foreground">+66962780348</p>
+                </div>
+              </div>
+            </div>
 
-          toast.success("Email sent successfully");
-        }}
-      >
-        <input
-          className='h-14 px-4 rounded-lg borderBlack dark;bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none'
-          name="senderEmail"
-          type="email"
-          required
-          maxLength={500}
-          placeholder='Your email'
-        />
-        <textarea
-          className='h-52 my-3 rounded-lg borderBlack p-4 dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none'
-          name="message"
-          placeholder='Your message'
-          required
-          maxLength={5000}
-        />
-        <SubmitBtn />
-      </form>
-    </motion.section>
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold mb-6">Follow Me</h3>
+              <div className="flex space-x-4">
+                <Link
+                  href="https://github.com/sai-pone-kha-aung"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-card hover:bg-card/80 p-3 rounded-full transition-colors"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-6 w-6"
+                  >
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                    <path d="M9 18c-4.51 2-5-2-7-2" />
+                  </svg>
+                </Link>
+                <Link
+                  href="https://linkedin.com/in/sai-pone-kha-aung"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-card hover:bg-card/80 p-3 rounded-full transition-colors"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-6 w-6"
+                  >
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect width="4" height="12" x="2" y="9" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                </Link>
+                <Link
+                  href="https://youtube.com/@y2kDevHub?sub_confirmation=1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-card hover:bg-card/80 p-3 rounded-full transition-colors"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-6 w-6"
+                  >
+                    <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+                    <path d="m10 15 5-3-5-3z" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
+            <form action={async (formData) => {
+              setIsSubmitting(true)
+              try {
+                const { error } = await sendEmail(formData)
+                if (error) {
+                  console.error("Error sending email:", error)
+                }
+              } finally {
+                setIsSubmitting(false)
+              }
+            }} className="space-y-6">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                  Email
+                </label>
+                <Input
+                  id="email"
+                  name="senderEmail"
+                  type="email"
+                  value={formState.senderEmail}
+                  onChange={handleChange}
+                  placeholder="Your email"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium mb-2">
+                  Message
+                </label>
+                <Textarea
+                  id="message"
+                  name="message"
+                  value={formState.message}
+                  onChange={handleChange}
+                  placeholder="Your message"
+                  rows={5}
+                  required
+                />
+              </div>
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <span className="flex items-center">
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-4 w-4 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Sending...
+                  </span>
+                ) : (
+                  <span className="flex items-center">
+                    <Send className="mr-2 h-4 w-4" /> Send Message
+                  </span>
+                )}
+              </Button>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </section>
   )
 }
