@@ -300,7 +300,7 @@ export const projects = [
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "ShadCN", "Clerk"],
     category: "web-app",
     liveLink:
-      "https://near-abac-git-nearabac016-sai-pone-kha-aungs-projects.vercel.app/",
+      "https://near-abac.vercel.app/",
     githubLink: "https://github.com/Sai-Pone-Kha-Aung/near_abac.git",
     // Additional details for the project detail page
     overview:
