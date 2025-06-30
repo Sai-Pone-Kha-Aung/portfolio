@@ -35,7 +35,7 @@ const Hero = () => {
                             </Link>
                         </Button>
                         <Button variant="outline" size="lg">
-                            <Link href="/Sai Pone Kha Aung - CV.pdf" target="_blank" download className='flex items-center'>
+                            <Link href="/Sai Pone Kha Aung - Resume.pdf" target="_blank" download className='flex items-center'>
                                 <Download className='mr-2 h-4 w-4' /> Download CV
                             </Link>
                         </Button>

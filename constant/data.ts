@@ -233,6 +233,13 @@ export const skills = [
     ],
   },
   {
+    title: "UI/UX",
+    description:
+      "Designing intuitive and engaging user experiences with a focus on usability",
+    icon: React.createElement(Layout, { className: "h-10 w-10" }),
+    technologies: ["Figma"],
+  },
+  {
     title: "Backend Development",
     description: "Creating robust server-side applications and APIs",
     icon: React.createElement(Database, { className: "h-10 w-10" }),
