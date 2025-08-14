@@ -86,7 +86,7 @@ const Projects = () => {
                                             </Link>
                                         </Button>
                                         <Button size="sm" variant="ghost" asChild>
-                                            <Link href="/" target="_blank">
+                                            <Link href={project.githubLink} target="_blank">
                                                 <Github className="h-4 w-4" />
                                                 <span className="sr-only">GitHub</span>
                                             </Link>
