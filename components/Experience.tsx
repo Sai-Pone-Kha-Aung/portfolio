@@ -81,7 +81,7 @@ const Experiences = () => {
 
                                     </PopoverTrigger>
                                     <PopoverContent
-                                        className="w-100 p-0 bg-card/95 backdrop-blur-sm border-primary/20"
+                                        className="max-w-xl w-100 p-0 bg-card/95 backdrop-blur-sm border-primary/20"
                                         side="right"
                                         sideOffset={5}
                                     >
